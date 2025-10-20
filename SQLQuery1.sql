@@ -77,11 +77,11 @@ GO
 -- Insert sample users (enhanced with full_name, phone_number)
 INSERT INTO dbo.Users (username, full_name, email, phone_number, password, role)
 VALUES 
-    ('admin1', 'John Mwangi', 'admin1@example.com', '+254700123456', 'hashed_password_123', 'Admin'),
-    ('dealer1', 'Mary Wanjiku', 'dealer1@example.com', '+254711987654', 'hashed_password_456', 'Dealer'),
-    ('client1', 'Peter Kamau', 'client1@example.com', '+254722345678', 'hashed_password_789', 'Client'),
-    ('client2', 'Susan Njeri', 'client2@example.com', '+254733456789', 'hashed_password_012', 'Client'),
-    ('client3', 'James Otieno', 'client3@example.com', '+254744567890', 'hashed_password_345', 'Client');
+    ('admin1', 'John Mwangi', 'admin1@example.com', '+254700123456', '$2y$10$BIf5OSAak9o3zGnpm6wzXOaED8b3tPS51OVGPwu6aBzwr4zlW9hYC', 'Admin'),
+    ('dealer1', 'Mary Wanjiku', 'dealer1@example.com', '+254711987654', '$2y$10$dQWt8EXkM/ejeXru.oZW8ulOhiolWyuzSHAlg95A4Cl/dY1r881PS', 'Dealer'),
+    ('client1', 'Peter Kamau', 'client1@example.com', '+254722345678', '$2y$10$9MRXlrAd.EihbnOKGRd0VOcSscr7gfCsk7gj0et7dBw1QsLPokb52', 'Client'),
+    ('client2', 'Susan Njeri', 'client2@example.com', '+254733456789', '$2y$10$hPXsnXv8u.1GrWXVSP5F4OBeLIxyM6nRcUzDCNAXXo6dPJHxOB3wm', 'Client'),
+    ('client3', 'James Otieno', 'client3@example.com', '+254744567890', '$2y$10$63/BdOmBJihmomlGAZqnpOUuYFpu3NQ7HLndtL2e60Lo7IEflmyWm', 'Client');
 GO
 
 -- Insert five example cars

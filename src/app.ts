@@ -1,35 +1,41 @@
-// src/app.ts
-import express, { Request, Response } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
-import { testConnection } from './config/db.js';  // ✅ keep .js for runtime after TS build
-import carsRouter from './routes/cars.js'; 
+import { connectDb } from './config/db';
+import authRoutes from './routes/authRoutes';
+import carRoutes from './routes/carRoutes';
+import tradeRoutes from './routes/tradeRoutes';
+import path from 'path';
 
 dotenv.config();
+
 const app = express();
 app.use(express.json());
 
-// health check
-app.get('/health', (req, res) => res.json({ status: 'ok', time: new Date().toISOString() }));
+// Serve static files
+app.use(express.static(path.join(__dirname, '../public')));
 
-// register your routers (ensure these files exist)
-app.use('/api/cars', carsRouter);
+// API routes
+app.use('/api/auth', authRoutes);
+app.use('/api/cars', carRoutes);
+app.use('/api/trades', tradeRoutes);
 
-// global error handler
-app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  console.error(err);
-  res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+// Serve index.html for root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
-async function start() {
+const startServer = async () => {
   try {
-    await testConnection();
-    app.listen(PORT, () => console.log(`🚀 Server listening on http://localhost:${PORT}`));
-  } catch (err) {
-    console.error('Failed to start app due to DB connection error');
+    await connectDb();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (err: any) {
+    console.error('Failed to start server:', err.message);
     process.exit(1);
   }
-}
+};
 
-start();
+startServer();
